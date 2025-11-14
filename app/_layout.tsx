@@ -2,9 +2,29 @@ import {SplashScreen, Stack} from "expo-router";
 import "./globals.css"
 import {useFonts} from "expo-font";
 import {useEffect} from "react";
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://686f5c9d237d5d15d67e604a179c6820@o4510363626176512.ingest.de.sentry.io/4510363637710928',
+
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Enable Logs
+  enableLogs: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 
-export default function RootLayout() {
+export default Sentry.wrap(function RootLayout() {
   const [ fontsLoaded, error] = useFonts({
       "QuickSand-Bold" : require("../assets/fonts/Quicksand-Bold.ttf"),
       "QuickSand-Medium" : require("../assets/fonts/Quicksand-Medium.ttf"),
@@ -18,4 +38,4 @@ export default function RootLayout() {
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded, error]);
   return <Stack screenOptions={{headerShown: false}} />;
-}
+});
