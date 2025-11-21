@@ -6,7 +6,12 @@ export const appwriteConfig = {
     platform: "com.krycha.food.ordering",
     projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!,
     databaseId: "6914f2cc003023276dd3",
-    userCollectionId: "user"
+    bucketId: "6920b6070015b0e2a3e8",
+    userCollectionId: "user",
+    categoriesCollectionId: "categories",
+    menuCollectionId: "menu",
+    customizationsCollectionId: "customizations",
+    menu_customizations_CollectionId: "menu_customizations",
 }
 
 export const client = new Client();
